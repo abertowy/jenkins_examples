@@ -4,7 +4,15 @@ agent { node { label 'LinuxSlave' } }
         string(name: 'EVENT_TYPE', defaultValue: '', description: 'Webhook event type')
     }
     triggers {
-        // genericTrigger(...) / simpleTrigger(...) etc.
+        GenericTrigger(
+            token: '12345678',
+            genericVariables: [
+                [key: 'status',  value: '$.status'],
+                [key: 'build',   value: '$.build']
+            ],
+            printContributedVariables: true,
+            printPostContent: true
+        )
     }
 	stages {
 		stage ('Package') {

@@ -71,7 +71,7 @@ agent { node { label 'LinuxSlave' } }
                         curl -X POST \
                             -H "Content-Type: application/json" \
                             -d '{"status":"SUCCESS","build":"'$BUILD_NUMBER'"}' \
-                            https://example.com/my/webhook
+                            http://localhost:8080/generic-webhook-trigger/invoke
                     '''
                     // libraryHelpers.callMetronService(
                     //         env.JOB_NAME,
