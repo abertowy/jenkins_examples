@@ -75,7 +75,7 @@ agent any
                     sh '''
                         curl -X POST \
                             -H "Content-Type: application/json" \
-                            -d '${jsonPayload}' \
+                            -d ${jsonPayload} \
                             http://localhost:8080/generic-webhook-trigger/invoke?token=12345678
 
                     '''
