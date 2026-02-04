@@ -14,9 +14,6 @@ agent any
 	options {
         timestamps () 
     }
-	tools {
-		jdk "jdk17"
-	}
 	stages {
         stage('Init') {
             steps {
