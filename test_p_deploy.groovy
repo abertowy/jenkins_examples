@@ -6,7 +6,7 @@ def gitVar
 def sendDataToMetron = libraryHelpers.getOrDefaultString(params, 'SEND_DATA_TO_METRON', 'false')
 
 pipeline {
-agent { node { label 'LinuxSlave' } }
+agent any
 	environment {
         BUILD_PROPERTIES='build.properties'
         STATIC_CREDENTIALS_FOLDER = 'staticP'
