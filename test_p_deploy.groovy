@@ -30,14 +30,14 @@ agent any
                         'https://github.com/abertowy/jenkins_examples.git',
                         'main'
                     )
-                    echo "WRITE BUILD PROPERTIES"
-                    libraryHelpers.writeBuildProperties(
-                            env.BUILD_PROPERTIES,
-                            gitVar.GIT_BRANCH,
-                            gitVar.GIT_COMMIT,
-                            BUILD_NUMBER,
-                            JOB_URL,
-                            targetEnv)
+                    // echo "WRITE BUILD PROPERTIES"
+                    // libraryHelpers.writeBuildProperties(
+                    //         env.BUILD_PROPERTIES,
+                    //         gitVar.GIT_BRANCH,
+                    //         gitVar.GIT_COMMIT,
+                    //         BUILD_NUMBER,
+                    //         JOB_URL,
+                    //         targetEnv)
                     echo "WRITE BUILD DESC"
                     currentBuild.description = libraryHelpers.createBuildDescription(gitVar.GIT_URL, gitVar.GIT_BRANCH, gitVar.GIT_COMMIT)
                 }
@@ -69,12 +69,13 @@ agent any
                         commitId: gitVar.GIT_COMMIT
                     ]
 
-                    echo "${groovy.json.JsonOutput.toJson(payload)}"
+                    def jsonPayload = groovy.json.JsonOutput.toJson(payload)
+                    echo "JSON: ${jsonPayload}"
                     
                     sh '''
                         curl -X POST \
                             -H "Content-Type: application/json" \
-                            -d "${groovy.json.JsonOutput.toJson(payload)}" \
+                            -d '${jsonPayload}' \
                             http://localhost:8080/generic-webhook-trigger/invoke?token=12345678
 
                     '''
