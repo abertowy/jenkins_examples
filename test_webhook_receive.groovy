@@ -1,5 +1,5 @@
 pipeline {
-agent { node { label 'LinuxSlave' } }
+agent any
 	parameters {
         string(name: 'EVENT_TYPE', defaultValue: '', description: 'Webhook event type')
     }
