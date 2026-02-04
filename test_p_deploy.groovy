@@ -63,10 +63,23 @@ agent any
             script {
                 if (sendDataToMetron.equals('true')) {
                     println "Sending data to metron service for \n\tbuildUrl=${env.BUILD_URL} \n\trepo=${gitVar.GIT_URL} \n\tgitBranch=${gitVar.GIT_BRANCH} \n\tcommitId=${gitVar.GIT_COMMIT}"
+                    
+                    def payload = [
+                        jobName: env.JOB_NAME,
+                        buildId: env.BUILD_ID,
+                        buildUrl: env.BUILD_URL,
+                        result: currentBuild.currentResult,
+                        startTime: currentBuild.startTimeInMillis,
+                        nodeName: env.NODE_NAME,
+                        repo: gitVar.GIT_URL,
+                        gitBranch: gitVar.GIT_BRANCH,
+                        commitId: gitVar.GIT_COMMIT
+                    ]
+                    
                     sh '''
                         curl -X POST \
                             -H "Content-Type: application/json" \
-                            -d '{"jobName":"${env.JOB_NAME}","buildId":"${env.BUILD_ID}", "buildUrl":"${env.BUILD_URL}","result": "${currentBuild.currentResult}", "startTime": "${currentBuild.startTimeInMillis}", "nodeName": "${env.NODE_NAME}", "gitBranch": "${gitVar.GIT_BRANCH}"}' \
+                            -d "${groovy.json.JsonOutput.toJson(payload)}" \
                             http://localhost:8080/generic-webhook-trigger/invoke?token=12345678
 
                     '''
