@@ -30,7 +30,6 @@ agent any
                         'https://github.com/abertowy/jenkins_examples.git',
                         'main'
                     )
-                    libraryHelpers.checkoutJenkinsPipelineRepo(JENKINS_REPO_BRANCH)
                     libraryHelpers.writeBuildProperties(
                             env.BUILD_PROPERTIES,
                             gitVar.GIT_BRANCH,
