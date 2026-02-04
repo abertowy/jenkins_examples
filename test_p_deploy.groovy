@@ -72,13 +72,23 @@ agent any
                     def jsonPayload = groovy.json.JsonOutput.toJson(payload)
                     echo "JSON: ${jsonPayload}"
                     
-                    sh '''
+                    sh """
                         curl -X POST \
                             -H "Content-Type: application/json" \
-                            -d ${jsonPayload} \
+                            -d "{
+                                \"jobName\": \"${env.JOB_NAME}\",
+                                \"buildId\": \"${env.BUILD_ID}\"
+                                // "buildUrl": "${env.BUILD_URL}",
+                                // "result": "${currentBuild.currentResult}",
+                                // "startTime": ${currentBuild.startTimeInMillis},
+                                // "nodeName": "${env.NODE_NAME}",
+                                // "repo": "${gitVar.GIT_URL}",
+                                // "gitBranch": "${gitVar.GIT_BRANCH}",
+                                // "commitId": "${gitVar.GIT_COMMIT}"
+                            }"\
                             http://localhost:8080/generic-webhook-trigger/invoke?token=12345678
 
-                    '''
+                    """
                     // libraryHelpers.callMetronService(
                     //         env.JOB_NAME,
                     //         env.BUILD_ID,
