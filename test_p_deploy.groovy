@@ -30,6 +30,7 @@ agent any
                         'https://github.com/abertowy/jenkins_examples.git',
                         'main'
                     )
+                    echo "WRITE BUILD PROPERTIES"
                     libraryHelpers.writeBuildProperties(
                             env.BUILD_PROPERTIES,
                             gitVar.GIT_BRANCH,
@@ -37,23 +38,15 @@ agent any
                             BUILD_NUMBER,
                             JOB_URL,
                             targetEnv)
+                    echo "WRITE BUILD DESC"
                     currentBuild.description = libraryHelpers.createBuildDescription(gitVar.GIT_URL, gitVar.GIT_BRANCH, gitVar.GIT_COMMIT)
                 }
 			}
 		}
-		// stage ('ENV Setup'){
-        //     steps {
-		// 		script{
-        //             libraryHelpers.copyCredentialsForMainProject(env.STATIC_CREDENTIALS_FOLDER)
-		// 		}
-		// 	}
-		// }
 		stage ('Package') {
 			steps{
 				script{
-                    sh("""
-                        echo "WE ARE HERE"
-                    """)
+                    echo "WE ARE HERE"
 				}
 			}
 		}
@@ -75,6 +68,8 @@ agent any
                         gitBranch: gitVar.GIT_BRANCH,
                         commitId: gitVar.GIT_COMMIT
                     ]
+
+                    echo "${groovy.json.JsonOutput.toJson(payload)}"
                     
                     sh '''
                         curl -X POST \
