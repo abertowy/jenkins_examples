@@ -7,8 +7,17 @@ agent any
         GenericTrigger(
             token: '12345678',
             genericVariables: [
-                [key: 'status',  value: '$.status'],
-                [key: 'build',   value: '$.build']
+                [key: 'jobName',  value: '$.jobName'],
+                [key: 'buildId',   value: '$.buildId'],
+                [key: 'buildUrl',   value: '$.buildUrl'],
+                [key: 'result',   value: '$.result'],
+                [key: 'startTime',   value: '$.startTime'],
+                [key: 'nodeName',   value: '$.nodeName'],
+                [key: 'gitBranch',   value: '$.gitBranch']
+                // [key: 'buildId',   value: '$.buildId'],
+                // [key: 'buildId',   value: '$.buildId'],
+                // [key: 'buildId',   value: '$.buildId'],
+                // [key: 'buildId',   value: '$.buildId'],
             ],
             printContributedVariables: true,
             printPostContent: true
@@ -18,9 +27,14 @@ agent any
 		stage ('Package') {
 			steps{
 				script{
-                    sh("""
-                        echo "HERE IS A WEBHOOK"
-                    """)
+                    echo "HERE IS A WEBHOOK"
+                    echo "jobName: ${env.jobName}"
+                    echo "buildId: ${env.buildId}"
+                    echo "buildUrl: ${env.buildUrl}"
+                    echo "result: ${env.result}"
+                    echo "startTime: ${env.startTime}"
+                    echo "nodeName: ${env.nodeName}"
+                    echo "gitBranch: ${env.gitBranch}"
 				}
 			}
 		}

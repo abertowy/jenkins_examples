@@ -70,8 +70,9 @@ agent { node { label 'LinuxSlave' } }
                     sh '''
                         curl -X POST \
                             -H "Content-Type: application/json" \
-                            -d '{"status":"SUCCESS","build":"'$BUILD_NUMBER'"}' \
-                            http://localhost:8080/generic-webhook-trigger/invoke
+                            -d '{"jobName":"${env.JOB_NAME}","buildId":"${env.BUILD_ID}", "buildUrl":"${env.BUILD_URL}","result": "${currentBuild.currentResult}", "startTime": "${currentBuild.startTimeInMillis}", "nodeName": "${env.NODE_NAME}", "gitBranch": "${gitVar.GIT_BRANCH}"}' \
+                            http://localhost:8080/generic-webhook-trigger/invoke?token=12345678
+
                     '''
                     // libraryHelpers.callMetronService(
                     //         env.JOB_NAME,
