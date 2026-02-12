@@ -1,6 +1,6 @@
 def call(Map pipelineParams) {
     pipeline {
-        node(pipelineParams.nodeLabel ?: 'any') {
+        node(pipelineParams.nodeLabel ?: '') {
         // stageTest(pipelineParams)
             try {
                 stageBuild(pipelineParams)
