@@ -1,7 +1,16 @@
 def call(Map pipelineParams) {
     pipeline {
     // agent any
-        stageBuild(pipelineParams)
+        //stageBuild(pipelineParams)
+        stages {
+            stage('Initialize') {
+                steps {
+                    script {
+                        echo "BUILD"
+                    }
+                }
+            }
+        }
         post{
             success {
                 script {
