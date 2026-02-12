@@ -513,19 +513,5 @@ def getUsernamePasswordEncoded(def username, def password){
 }
 
 def simpleEcho(){
-    success {
-        script {
-            echo "SUCCESS"
-        }
-	}        
-    failure {
-        script {
-            echo "TFAILURE"
-        }
-    }
-    always{
-        script {
-            simpleEcho()
-        }
-    }
+    echo "AAAAA"
 }
