@@ -1,4 +1,4 @@
-@Library('purpdm-lib@main')
+library('purpdm-lib@main')
 
 pipeline {
     agent any
