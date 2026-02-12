@@ -11,7 +11,7 @@ def call(Map pipelineParams) {
                 }
                 if (currentBuild.result == 'UNSTABLE') {
                 }
-                // stageTest(pipelineParams)
+                stageTest(pipelineParams)
                 libraryHelpers.simpleEcho()
             }
         }
