@@ -1,5 +1,5 @@
 @Library('purpdm-lib@main') _
 
-pipelineParameterized(
+pipelineParametrized(
     branch: params.GIT_BRANCH
 )
