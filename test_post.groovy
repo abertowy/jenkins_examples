@@ -3,8 +3,7 @@ library('purpdm-lib@main')
 pipeline {
     agent any
     
-    stages {
-        stageBuild(pipelineParams)
+    // stages {
         // stage('Initialize') {
         //     steps {
         //         script {
@@ -12,7 +11,8 @@ pipeline {
         //         }
         //     }
         // }
-    }
+    // }
+    stageBuild(pipelineParams)
     stageTest(pipelineParams)
     // post{
     //     success {
