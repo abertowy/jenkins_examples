@@ -13,21 +13,20 @@ pipeline {
         }
     }
     post{
-        stageTest(branch: params.GIT_BRANCH)
-        // success {
-        //     script {
-        //         echo "SUCCESS"
-        //     }
-		// }        
-        // failure {
-        //     script {
-        //         echo "TFAILURE"
-        //     }
-        // }
-        // always{
-        //     script {
-        //         echo "ALWAYS"
-        //     }
-        // }
+        success {
+            script {
+                echo "SUCCESS"
+            }
+		}        
+        failure {
+            script {
+                echo "TFAILURE"
+            }
+        }
+        always{
+            script {
+                simpleEcho()
+            }
+        }
     }
 }

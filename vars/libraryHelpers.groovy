@@ -511,3 +511,7 @@ def getBasicAuthHeader(def username, def password){
 def getUsernamePasswordEncoded(def username, def password){
     return "${username}:${password}".getBytes('UTF-8').encodeBase64().toString()
 }
+
+def simpleEcho(){
+    echo "SOME TEXT"
+}
