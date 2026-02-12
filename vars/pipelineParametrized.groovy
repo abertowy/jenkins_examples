@@ -10,7 +10,7 @@ def call(Map pipelineParams) {
             }
             if (currentBuild.result == 'UNSTABLE') {
             }
-            stageTest(pipeineParam)
+            stageTest(pipelineParam)
         }
     }
 }
