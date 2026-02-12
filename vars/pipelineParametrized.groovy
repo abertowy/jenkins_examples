@@ -2,7 +2,24 @@ def call(Map pipelineParams) {
     pipeline {
     // agent any
         stageBuild(pipelineParams)
-        stageTest(pipelineParams)
+        post{
+            success {
+                script {
+                    echo "SUCCESS"
+                }
+		    }        
+            failure {
+                script {
+                    echo "TFAILURE"
+                }
+            }
+            always{
+                script {
+                    echo "ALWAYS"
+                }
+            }
+        }
+        // stageTest(pipelineParams)
         // try {
         //     stageBuild(pipelineParams)
         // } catch (Throwable ex) {
