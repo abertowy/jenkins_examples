@@ -18,7 +18,10 @@ def call(Map pipelineParams) {
     //         }
     //     }
     // }
-    script {
-        echo "ALWAYS"
+    // 
+    stage('TEST'){
+        script{
+            echo "TEST SOME CODE"
+        }
     }
 }
