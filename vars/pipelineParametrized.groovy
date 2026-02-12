@@ -4,6 +4,7 @@ def call(Map pipelineParams) {
         // stageTest(pipelineParams)
             try {
                 stageBuild(pipelineParams)
+                eccho "AAAA"
             } catch (Throwable ex) {
                 throw ex
             } finally {
