@@ -24,9 +24,10 @@ pipeline {
             }
         }
         always{
-            script {
-                libraryHelpers.simpleEcho()
-            }
+            stageTest(branch: params.GIT_BRANCH)
+            // script {
+            //     libraryHelpers.simpleEcho()
+            // }
         }
     }
 }
