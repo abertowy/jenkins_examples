@@ -1,6 +1,6 @@
 def call(Map pipelineParams) {
     pipeline {
-        agent any
+    agent any
         try {
             stageBuild(pipelineParams)
         } catch (Throwable ex) {
