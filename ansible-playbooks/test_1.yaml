@@ -1,0 +1,7 @@
+---
+- name: 
+  hosts: "localhost"
+  tasks:
+    - name: Test smth
+      debug:
+        msg: "It is TEST #1"
