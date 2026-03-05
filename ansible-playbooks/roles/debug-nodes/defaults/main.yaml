@@ -1,0 +1,7 @@
+nodes:
+  - name: "Built-In"
+    path: "D:\\jenkins\\jobs"
+    host: "00866"
+  - name: "LinuxSlavePurpdm"
+    path: "/var/lib/jenkins/jobs"
+    host: "00544"

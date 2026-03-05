@@ -1,0 +1,9 @@
+- name: Linux nodes
+  debug:
+    msg: "FOR LINUX ONLY"
+
+- name: Inspect nodes
+  debug:
+    msg: "{{ 'name: ' + item.0.name + ', path: ' + item.0.path }}"
+  loop: "{{ nodes | zip(inspected_nodes)|list }}"
+  when: item.0.name == item.1

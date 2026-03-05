@@ -5,3 +5,7 @@
     - name: Test smth
       debug:
         msg: "It is TEST #1"
+  roles:
+    - name: debug-nodes
+      vars:
+        inspected_nodes: "{{ nodes }}"
