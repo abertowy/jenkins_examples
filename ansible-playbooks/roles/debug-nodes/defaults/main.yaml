@@ -1,4 +1,4 @@
-nodes:
+nodes_all:
   - name: "Built-In"
     path: "D:\\jenkins\\jobs"
     host: "00866"
