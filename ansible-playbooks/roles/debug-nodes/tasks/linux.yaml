@@ -1,10 +1,24 @@
-- name: Linux nodes
-  debug:
-    msg: "FOR LINUX ONLY"
-
 - name: Inspect nodes
   debug:
     msg: "{{ 'name: ' + item.0.name + ', path: ' + item.0.path }}"
     # msg: "{{ item.0  + ' ' + item.1 }}"
   loop: "{{ nodes_all | zip(inspected_nodes)|list }}"
   when: item.0.name == item.1
+
+- name: Check if each job exists in Jenkins
+  uri:
+    url: "http://localhost:8080/api/json?tree=jobs[name]"
+    method: GET
+    return_content: yes
+    user: "admin"
+    password: "11e424b83cb81187f50a6412f298129bc9"  # From: User → Configure → API Token
+    force_basic_auth: yes
+  register: jenkins_jobs
+
+- name: Parse Jenkins job names
+  set_fact:
+    jenkins_job_names: "{{ (jenkins_jobs.json.jobs | map(attribute='name') | list) }}"
+
+- name: Linux nodes
+  debug:
+    msg: "{{ jenkins_job_names }}"

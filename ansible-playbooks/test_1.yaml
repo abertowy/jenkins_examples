@@ -2,9 +2,47 @@
 - name: 
   hosts: "localhost"
   tasks:
-    - name: Test smth
+    - name: Show host data
       debug:
-        msg: "It is TEST #1"
+        msg: "Running on host: {{ inventory_hostname }}"
+    - name: Sort WS by modified date and older than 180 days
+      shell: |
+        find /home/ubuntu/work_dir/test -maxdepth 1 -mindepth 1 -printf '%f\n' | sort -r
+      register: ws_outdated
+
+    - name: Parse Jenkins job names
+      set_fact:
+        jenkins_job_names: ["file_a.txt", "file_b.txt"]
+
+    - name: List of unused WS
+      set_fact:
+        ws_unused: "{{ ws_unused | default([]) + [item] }}"
+      loop: "{{ ws_outdated.stdout_lines }}"
+      when: item not in jenkins_job_names
+
+    # - name: debug
+    #   debug:
+    #     msg: "{{ ws_unused }}"
+
+    # - name: Remove unused WS
+    #   shell: |
+    #     rm -R '{{ item }}'
+    #   loop: "{{ ws_unused }}"
+    #   args:
+    #     chdir: "/home/ubuntu/work_dir/test"
+
+    - name: Setup host data
+      set_fact:
+        ws: "/home/ubuntu/work_dir/workspace-{{ now(utc=true,fmt='%Y-%m-%d') }}-{{ inventory_hostname }}"
+
+    - name: Sort WS by modified date and older than 180 days after deleting non-existing ones
+      shell: |
+        find /home/ubuntu/work_dir/test -maxdepth 1 -mindepth 1 -printf '%TY-%Tm-%Td %TT %p\n' | sort -r > {{ ws }}.txt
+
+    - name: Create xlsx for sorted WS
+      # shell: python3 -c "import pandas as pd; pd.read_fwf('{{ ws }}.txt',header=None).to_excel('{{ ws }}.xlsx',index=False,header=False)"
+      # shell: "libreoffice --headless --convert-to xlsx {{ ws }}.txt --outdir ."
+      shell: awk '{print "\""$1"\"","\""$2"\"","\""$3"\""}' {{ ws }}.txt > {{ ws }}.csv
   roles:
     - name: debug-nodes
       vars:
