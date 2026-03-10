@@ -3,11 +3,16 @@ import groovy.json.JsonOutput
 
 pipeline {
     agent any
+
+    parameters {
+        hidden(name: 'hidden_param', defaultValue: 'hidden_value', description: 'Hidden parameter')
+    }
     
     stages {
         stage('Initialize') {
             steps {
                 script {
+                    println "Provided parameters: ${params.hidden_param}"
                     checkout scmGit(branches: [[name: "main"]],
                         userRemoteConfigs: [[
                             credentialsId: 'git',
